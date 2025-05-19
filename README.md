@@ -1,1 +1,0 @@
-# Tubes-Crowdfunding-Sederhana-Go
