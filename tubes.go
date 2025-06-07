@@ -27,7 +27,8 @@ func main() {
 	login(&currentUser)
 
 	var input string
-	for {
+	var programBerjalan bool = true
+	for programBerjalan == true {
 		tampilkanMenu()
 		fmt.Print("Pilih menu: ")
 		fmt.Scanln(&input)
@@ -48,8 +49,8 @@ func main() {
 		case "6":
 			proyekBerhasilPendanaan(daftarProyek, n)
 		case "7":
-			fmt.Println("Sampai Jumpa Lagi...")
-			return
+			keluarAplikasi()
+			programBerjalan = false
 		default:
 			fmt.Println("Pilihan tidak valid!")
 		}
@@ -57,62 +58,80 @@ func main() {
 }
 
 func login(currentUser *string) {
-	fmt.Println("\n-------------------------------------------------------------------------------")
-	fmt.Println("                    SELAMAT DATANG DI APLIKASI CROWDFUNDING                    ")
-	fmt.Println("-------------------------------------------------------------------------------")
+	fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+	fmt.Println("║                                 SELAMAT DATANG DI APLIKASI CROWDFUNDING                              ║")
+	fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")
 	fmt.Print("Masukkan Username: ")
 	fmt.Scanln(currentUser)
 }
 
 func tampilkanMenu() {
-	fmt.Println("\n-------------------------------------------------------------------------------")
-	fmt.Println("                                   MENU UTAMA                                  ")
-	fmt.Println("-------------------------------------------------------------------------------")
-	fmt.Println("1. Tampilkan Semua Proyek")
-	fmt.Println("2. Tambah Proyek Baru")
-	fmt.Println("3. Cari Proyek")
-	fmt.Println("4. Urutkan Proyek")
-	fmt.Println("5. Kelola Proyek Saya")
-	fmt.Println("6. Proyek Berhasil didanai")
-	fmt.Println("7. Keluar dari Aplikasi")
-	fmt.Println("-------------------------------------------------------------------------------")
+	fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+	fmt.Println("║                                               MENU UTAMA                                             ║")
+	fmt.Println("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣")
+	fmt.Println("║ 1. Tampilkan Semua Proyek                                                                            ║")
+	fmt.Println("║ 2. Tambah Proyek Baru                                                                                ║")
+	fmt.Println("║ 3. Cari Proyek                                                                                       ║")
+	fmt.Println("║ 4. Urutkan Proyek                                                                                    ║")
+	fmt.Println("║ 5. Kelola Proyek Saya                                                                                ║")
+	fmt.Println("║ 6. Proyek Berhasil didanai                                                                           ║")
+	fmt.Println("║ 7. Keluar dari Aplikasi                                                                              ║")
+	fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")
+}
+
+func keluarAplikasi() {
+	fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+	fmt.Println("║                                 TERIMA KASIH TELAH MENGGUNAKAN APLIKASI                              ║")
+	fmt.Println("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣")
+	fmt.Println("║  created by:                                                                                         ║")
+	fmt.Println("║                                   HAFIZ FAJAR RAMADHAN  (103012430027)                               ║")
+	fmt.Println("║                                   NALENDRA MAGI JATAYU  (103012400362)                               ║")
+	fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")
 }
 
 func tampilkanSemuaProyek(daftarProyek *DaftarProyek, n int, donasiFunc func()) {
-	fmt.Println("\n-------------------------------------------------------------------------------")
-	fmt.Println("                              DAFTAR SEMUA PROYEK                              ")
-	fmt.Println("-------------------------------------------------------------------------------")
+	fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+	fmt.Println("║                                        DAFTAR SEMUA PROYEK                                           ║")
+	fmt.Println("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣")
 
-	for i := 0; i < n; i++ {
-		fmt.Printf("%d. %s (%s)\n", i+1, daftarProyek[i].Nama, daftarProyek[i].Kategori)
-		fmt.Printf("   Target: Rp%.0f\n", daftarProyek[i].Target)
-		fmt.Printf("   Dana terkumpul: Rp%.0f\n", daftarProyek[i].Dana)
-		fmt.Printf("   Jumlah Donatur: %d donatur\n", daftarProyek[i].Donatur)
-		fmt.Printf("   Progress: %.0f%%\n", (daftarProyek[i].Dana/daftarProyek[i].Target)*100)
-		fmt.Println()
+	fmt.Println("║ No. ║ Nama Proyek        ║ Kategori      ║ Target       ║ Dana Terkumpul ║ Jumlah Donatur ║ Progress ║")
+	var i int
+	for i = 0; i < n; i++ {
+		fmt.Printf("║  %-2d ║ %-18s ║ %-13s ║ Rp%-10.0f ║ Rp%-12.0f ║       %-8d ║   %-5.0f%% ║\n", i+1, daftarProyek[i].Nama, daftarProyek[i].Kategori, daftarProyek[i].Target, daftarProyek[i].Dana, daftarProyek[i].Donatur, (daftarProyek[i].Dana/daftarProyek[i].Target)*100)
 	}
-	fmt.Println("-------------------------------------------------------------------------------")
-	fmt.Println("1. Donasi")
-	fmt.Println("2. Kembali ke Menu Utama")
-	fmt.Println("-------------------------------------------------------------------------------")
-	fmt.Print("Pilih menu: ")
-
+	fmt.Println("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣")
+	fmt.Println("║ 1. Donasi                                                                                            ║")
+	fmt.Println("║ 2. Kembali ke Menu Utama                                                                             ║")
+	fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")
+	
 	var pilihan string
-	fmt.Scanln(&pilihan)
+	for {
+		fmt.Print("Pilih menu: ")
+		fmt.Scanln(&pilihan)
 
-	if pilihan == "1" {
-		donasi(daftarProyek, n)
+		switch pilihan {
+			case "1":
+				donasi(daftarProyek, n)
+			case "2":
+				return
+			default:
+				fmt.Println("Pilihan tidak valid")
+				fmt.Println()
+		}
 	}
 }
 
 func donasi(daftarProyek *DaftarProyek, n int) {
 	var nomorProyek, jumlahDonasi int
+	var proyek *Proyek
+	var progress float64
 
 	fmt.Print("Pilih nomor proyek yang ingin didonasi: ")
 	fmt.Scanln(&nomorProyek)
 
 	if nomorProyek < 1 || nomorProyek > n {
 		fmt.Println("Nomor proyek tidak valid!")
+		fmt.Println()
 		return
 	}
 
@@ -124,30 +143,27 @@ func donasi(daftarProyek *DaftarProyek, n int) {
 		return
 	}
 
-	proyek := &daftarProyek[nomorProyek-1]
+	proyek = &daftarProyek[nomorProyek-1]
 	proyek.Dana += float64(jumlahDonasi)
 	proyek.Donatur++
 
 	fmt.Printf("\nTerima kasih telah mendonasikan Rp%d untuk proyek %s\n", jumlahDonasi, proyek.Nama)
 
-	progress := (proyek.Dana / proyek.Target) * 100
+	progress = (proyek.Dana / proyek.Target) * 100
 	fmt.Printf("Progress terkini: %.0f%%\n", progress)
 
 	if proyek.Dana >= proyek.Target && proyek.Target > 0 {
 		fmt.Println("Selamat! Proyek ini telah mencapai target pendanaan!")
 	}
-	fmt.Println("-------------------------------------------------------------------------------")
+	fmt.Println()
 }
 
 func kelolaProyekSaya(daftarProyek *DaftarProyek, n *int, currentUser string) {
-	fmt.Println("\n-------------------------------------------------------------------------------")
-	fmt.Println("                              KELOLA PROYEK SAYA                               ")
-	fmt.Println("-------------------------------------------------------------------------------")
-
 	var proyekSaya DaftarProyek
 	var jumlahProyekSaya int = 0
+	var i int
 
-	for i := 0; i < *n; i++ {
+	for i = 0; i < *n; i++ {
 		if daftarProyek[i].Pemilik == currentUser {
 			proyekSaya[jumlahProyekSaya] = daftarProyek[i]
 			jumlahProyekSaya++
@@ -159,21 +175,20 @@ func kelolaProyekSaya(daftarProyek *DaftarProyek, n *int, currentUser string) {
 		return
 	}
 
-	for i := 0; i < jumlahProyekSaya; i++ {
-		fmt.Printf("%d. %s (%s)\n", i+1, proyekSaya[i].Nama, proyekSaya[i].Kategori)
-		fmt.Printf("   Target: Rp%.0f\n", proyekSaya[i].Target)
-		fmt.Printf("   Dana terkumpul: Rp%.0f\n", proyekSaya[i].Dana)
-		fmt.Printf("   Jumlah Donatur: %d donatur\n", proyekSaya[i].Donatur)
-		fmt.Println()
-	}
-	fmt.Println("-------------------------------------------------------------------------------")
-
 	var pilihan string
 	for {
-		fmt.Println("\n1. Edit Proyek")
-		fmt.Println("2. Hapus Proyek")
-		fmt.Println("3. Kembali")
-		fmt.Println("-------------------------------------------------------------------------------")
+		fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+		fmt.Println("║                                         KELOLA PROYEK SAYA                                           ║")
+		fmt.Println("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣")
+		fmt.Println("║ No. ║ Nama Proyek        ║ Kategori      ║ Target       ║ Dana Terkumpul ║ Jumlah Donatur ║ Progress ║")
+		for i := 0; i < jumlahProyekSaya; i++ {
+			fmt.Printf("║  %-2d ║ %-18s ║ %-13s ║ Rp%-10.0f ║ Rp%-12.0f ║       %-8d ║   %-5.0f%% ║\n", i+1, proyekSaya[i].Nama, proyekSaya[i].Kategori, proyekSaya[i].Target, proyekSaya[i].Dana, proyekSaya[i].Donatur, (proyekSaya[i].Dana/proyekSaya[i].Target)*100)
+		}
+		fmt.Println("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣")
+		fmt.Println("║ 1. Edit Proyek                                                                                       ║")
+		fmt.Println("║ 2. Hapus Proyek                                                                                      ║")
+		fmt.Println("║ 3. Kembali                                                                                           ║")
+		fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")
 		fmt.Print("Pilih menu: ")
 		fmt.Scanln(&pilihan)
 
@@ -199,8 +214,9 @@ func editProyekSaya(daftarProyek *DaftarProyek, n *int, proyekSaya DaftarProyek,
 		return
 	}
 
-	indexDiDaftarUtama := -1
-	for i := 0; i < *n; i++ {
+	var indexDiDaftarUtama int = -1
+	var i int
+	for i = 0; i < *n; i++ {
 		if daftarProyek[i].Nama == proyekSaya[nomor-1].Nama && daftarProyek[i].Pemilik == currentUser {
 			indexDiDaftarUtama = i
 		}
@@ -260,9 +276,11 @@ func hapusProyekSaya(daftarProyek *DaftarProyek, n *int, proyekSaya DaftarProyek
 		return
 	}
 
-	proyekDipilih := proyekSaya[nomor-1]
-	indexDiDaftarUtama := -1
-	for i := 0; i < *n; i++ {
+	var proyekDipilih Proyek
+	var indexDiDaftarUtama int = -1
+	var i int
+	proyekDipilih = proyekSaya[nomor-1]
+	for i = 0; i < *n; i++ {
 		if daftarProyek[i].Nama == proyekDipilih.Nama && daftarProyek[i].Pemilik == currentUser {
 			indexDiDaftarUtama = i
 		}
@@ -278,7 +296,7 @@ func hapusProyekSaya(daftarProyek *DaftarProyek, n *int, proyekSaya DaftarProyek
 	fmt.Scanln(&konfirmasi)
 
 	if konfirmasi == "y" || konfirmasi == "Y" {
-		for i := indexDiDaftarUtama; i < *n-1; i++ {
+		for i = indexDiDaftarUtama; i < *n-1; i++ {
 			daftarProyek[i] = daftarProyek[i+1]
 		}
 		*n--
@@ -295,7 +313,9 @@ func tambahProyekBaru(daftarProyek *DaftarProyek, n *int, currentUser string, na
 	}
 
 	if nama == "" {
-		fmt.Println("\nTambah Proyek Baru")
+		fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+		fmt.Println("║                                          TAMBAH PROYEK BARU                                          ║")
+		fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")
 		fmt.Print("Nama Proyek: ")
 		fmt.Scanln(&nama)
 		fmt.Print("Kategori: ")
@@ -322,12 +342,13 @@ func tambahProyekBaru(daftarProyek *DaftarProyek, n *int, currentUser string, na
 }
 
 func cariProyek(daftarProyek DaftarProyek, n int) {
-	fmt.Println("\n-------------------------------------------------------------------------------")
-	fmt.Println("                                  CARI PROYEK                                  ")
-	fmt.Println("-------------------------------------------------------------------------------")
-	fmt.Println("1. Nama (Sequential Search)")
-	fmt.Println("2. Kategori (Binary Search)")
-	fmt.Println("-------------------------------------------------------------------------------")
+	fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+	fmt.Println("║                                             CARI PROYEK                                              ║")
+	fmt.Println("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣")
+	fmt.Println("║ 1. Nama (Sequential Search)                                                                          ║")
+	fmt.Println("║ 2. Kategori (Binary Search)                                                                          ║")
+	fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")	
+	
 	var pilihan string
 	fmt.Print("Pilih metode: ")
 	fmt.Scanln(&pilihan)
@@ -350,12 +371,16 @@ func cariProyek(daftarProyek DaftarProyek, n int) {
 }
 
 func sequentialSearch(daftarProyek DaftarProyek, n int, keyword string) {
-	fmt.Println("\nHasil Pencarian Berdasarkan Nama:")
-	found := false
+	var found bool
+	var i int
+	var iterasi int
+	iterasi = 0
 
-	for i := 0; i < n; i++ {
+	fmt.Println("\nHasil Pencarian Berdasarkan Nama:")
+	for i = 0; i < n; i++ {
 		if daftarProyek[i].Nama == keyword {
-			tampilkanDetailProyek(daftarProyek[i])
+			tampilkanDetailProyek(daftarProyek[i], iterasi)
+			iterasi++
 			found = true
 		}
 	}
@@ -366,8 +391,9 @@ func sequentialSearch(daftarProyek DaftarProyek, n int, keyword string) {
 }
 
 func sortByCategory(daftarProyek *DaftarProyek, n int) {
-    for i := 0; i < n-1; i++ {
-        for j := 0; j < n-i-1; j++ {
+	var i, j int
+    for i = 0; i < n-1; i++ {
+        for j = 0; j < n-i-1; j++ {
             if daftarProyek[j].Kategori > daftarProyek[j+1].Kategori {
                 daftarProyek[j], daftarProyek[j+1] = daftarProyek[j+1], daftarProyek[j]
             }
@@ -376,14 +402,19 @@ func sortByCategory(daftarProyek *DaftarProyek, n int) {
 }
 
 func binarySearch(daftarProyek DaftarProyek, n int, keyword string) {
-	fmt.Println("\nHasil Pencarian Berdasarkan Kategori:")
-	left := 0
-	right := n - 1
-	found := false
-	var indexDitemukan int = -1
+	var left, right, mid, indexDitemukan, i int
+	var found bool
+	var iterasi int
 
+	left = 0
+	right = n - 1
+	found = false
+	indexDitemukan = -1
+	iterasi = 0
+
+	fmt.Println("\nHasil Pencarian Berdasarkan Kategori:")
 	for left <= right {
-		mid := (left + right) / 2
+		mid = (left + right) / 2
 		if daftarProyek[mid].Kategori == keyword {
 			indexDitemukan = mid
 			found = true
@@ -396,30 +427,31 @@ func binarySearch(daftarProyek DaftarProyek, n int, keyword string) {
 	}
 
 	if found {
-        i := indexDitemukan
+        i = indexDitemukan
         for i >= 0 && daftarProyek[i].Kategori == keyword {
-            tampilkanDetailProyek(daftarProyek[i])
+            tampilkanDetailProyek(daftarProyek[i], iterasi)
+			iterasi++
             i--
         }
 
         i = indexDitemukan + 1
         for i < n && daftarProyek[i].Kategori == keyword {
-            tampilkanDetailProyek(daftarProyek[i])
+            tampilkanDetailProyek(daftarProyek[i], iterasi)
+			iterasi++
             i++
         }
     } else {
         fmt.Println("Proyek dengan kategori", keyword, "tidak ditemukan!")
     }
-
 }
 
 func urutkanProyek(daftarProyek *DaftarProyek, n int) {
-	fmt.Println("\n-------------------------------------------------------------------------------")
-	fmt.Println("                                 URUTKAN PROYEK                                ")
-	fmt.Println("-------------------------------------------------------------------------------")
-	fmt.Println("1. Total Dana Terkumpul (Selection Sort)")
-	fmt.Println("2. Jumlah Donatur (Insertion Sort)")
-	fmt.Println("-------------------------------------------------------------------------------")
+	fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+	fmt.Println("║                                            URUTKAN PROYEK                                            ║")
+	fmt.Println("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣")
+	fmt.Println("║ 1. Total Dana Terkumpul (Selection Sort)                                                             ║")
+	fmt.Println("║ 2. Jumlah Donatur (Insertion Sort)                                                                   ║")
+	fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")	
 	var pilihan string
 	fmt.Print("Pilih metode: ")
 	fmt.Scanln(&pilihan)
@@ -436,53 +468,68 @@ func urutkanProyek(daftarProyek *DaftarProyek, n int) {
 }
 
 func selectionSort(daftarProyek *DaftarProyek, n int) {
-	for i := 0; i < n-1; i++ {
-		minIdx := i
-		for j := i + 1; j < n; j++ {
-			if daftarProyek[j].Dana < daftarProyek[minIdx].Dana {
-				minIdx = j
+	var pass, i, idx int
+	var temp Proyek
+	for pass = 1; pass < n; pass++ {
+		idx = pass-1
+		for i = pass; i < n; i++ {
+			if daftarProyek[idx].Dana > daftarProyek[i].Dana {
+				idx = i
 			}
 		}
-		daftarProyek[i], daftarProyek[minIdx] = daftarProyek[minIdx], daftarProyek[i]
+		temp = daftarProyek[pass-1]
+		daftarProyek[pass-1] = daftarProyek[idx]
+		daftarProyek[idx] = temp
 	}
 }
 
 func insertionSort(daftarProyek *DaftarProyek, n int) {
-	for i := 1; i < n; i++ {
-		key := daftarProyek[i]
-		j := i - 1
-		for j >= 0 && daftarProyek[j].Donatur > key.Donatur {
-			daftarProyek[j+1] = daftarProyek[j]
-			j--
+	var pass, i int
+	var temp Proyek
+	for pass = 1; pass < n; pass++ {
+		temp = daftarProyek[pass]
+		i = pass
+		for i > 0 && temp.Donatur < daftarProyek[i-1].Donatur{
+			daftarProyek[i] = daftarProyek[i-1]
+			i--
 		}
-		daftarProyek[j+1] = key
+		daftarProyek[i] = temp
 	}
 }
 
 func proyekBerhasilPendanaan(daftarProyek DaftarProyek, n int) {
-	fmt.Println("\n-------------------------------------------------------------------------------")
-	fmt.Println("                            PROYEK BERHASIL DIDANAI                            ")
-	fmt.Println("-------------------------------------------------------------------------------")
-	found := false
-	for i := 0; i < n; i++ {
+	var found bool
+	var i int
+	var iterasi int
+	iterasi = 0
+
+	fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
+	fmt.Println("║                                       PROYEK BERHASIL DIDANAI                                        ║")
+	fmt.Println("╠══════════════════════════════════════════════════════════════════════════════════════════════════════╣")
+
+	for i = 0; i < n; i++ {
 		if daftarProyek[i].Dana >= daftarProyek[i].Target {
-			tampilkanDetailProyek(daftarProyek[i])
+			tampilkanDetailProyek(daftarProyek[i], iterasi)
+			iterasi++
 			found = true
 		}
 	}
-	if !found {
+	if found {
+		fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")
+	} else {
 		fmt.Println("Belum ada proyek yang mencapai target")
 	}
 }
 
-func tampilkanDetailProyek(p Proyek) {
-	fmt.Printf("\n%s (%s)\n", p.Nama, p.Kategori)
-	fmt.Printf("   Target: Rp%.0f\n", p.Target)
-	fmt.Printf("   Dana Terkumpul: Rp%.0f\n", p.Dana)
-	fmt.Printf("   Jumlah Donatur: %d donatur\n", p.Donatur)
-	progress := 0.0
+func tampilkanDetailProyek(p Proyek, iterasi int) {
+	var progress float64 = 0.0
+
+	if iterasi == 0 {
+		fmt.Println("║ Nama Proyek          ║ Kategori        ║ Target         ║ Dana Terkumpul ║ Jumlah Donatur ║ Progress ║")
+	}
 	if p.Target > 0 {
 		progress = (p.Dana / p.Target) * 100
 	}
-	fmt.Printf("   Progress: %.0f%%\n", progress)
+	fmt.Printf("║ %-20s ║ %-15s ║ Rp%-12.0f ║ Rp%-12.0f ║       %-8d ║   %-5.0f%% ║\n", p.Nama, p.Kategori, p.Target, p.Dana, p.Donatur, progress)
+	iterasi++
 }
