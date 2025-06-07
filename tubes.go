@@ -371,16 +371,16 @@ func cariProyek(daftarProyek DaftarProyek, n int) {
 }
 
 func sequentialSearch(daftarProyek DaftarProyek, n int, keyword string) {
-	var found bool
-	var i int
-	var iterasi int
-	iterasi = 0
+	var found, footer bool
+	var i, header int
+	header = 0
 
 	fmt.Println("\nHasil Pencarian Berdasarkan Nama:")
 	for i = 0; i < n; i++ {
 		if daftarProyek[i].Nama == keyword {
-			tampilkanDetailProyek(daftarProyek[i], iterasi)
-			iterasi++
+			footer = (i == n-1)
+			tampilkanDetailProyek(daftarProyek[i], header, footer)
+			header++
 			found = true
 		}
 	}
@@ -402,15 +402,14 @@ func sortByCategory(daftarProyek *DaftarProyek, n int) {
 }
 
 func binarySearch(daftarProyek DaftarProyek, n int, keyword string) {
-	var left, right, mid, indexDitemukan, i int
-	var found bool
-	var iterasi int
+	var left, right, mid, indexDitemukan, i, header int
+	var found, footer bool
 
 	left = 0
 	right = n - 1
 	found = false
 	indexDitemukan = -1
-	iterasi = 0
+	header = 0
 
 	fmt.Println("\nHasil Pencarian Berdasarkan Kategori:")
 	for left <= right {
@@ -429,15 +428,17 @@ func binarySearch(daftarProyek DaftarProyek, n int, keyword string) {
 	if found {
         i = indexDitemukan
         for i >= 0 && daftarProyek[i].Kategori == keyword {
-            tampilkanDetailProyek(daftarProyek[i], iterasi)
-			iterasi++
+			footer = (i == 0)
+            tampilkanDetailProyek(daftarProyek[i], header, footer)
+			header++
             i--
         }
 
         i = indexDitemukan + 1
         for i < n && daftarProyek[i].Kategori == keyword {
-            tampilkanDetailProyek(daftarProyek[i], iterasi)
-			iterasi++
+			footer = (i == n-1)
+            tampilkanDetailProyek(daftarProyek[i], header, footer)
+			header++
             i++
         }
     } else {
@@ -498,10 +499,9 @@ func insertionSort(daftarProyek *DaftarProyek, n int) {
 }
 
 func proyekBerhasilPendanaan(daftarProyek DaftarProyek, n int) {
-	var found bool
-	var i int
-	var iterasi int
-	iterasi = 0
+	var found, footer bool
+	var i, header int
+	header = 0
 
 	fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
 	fmt.Println("║                                       PROYEK BERHASIL DIDANAI                                        ║")
@@ -509,8 +509,9 @@ func proyekBerhasilPendanaan(daftarProyek DaftarProyek, n int) {
 
 	for i = 0; i < n; i++ {
 		if daftarProyek[i].Dana >= daftarProyek[i].Target {
-			tampilkanDetailProyek(daftarProyek[i], iterasi)
-			iterasi++
+			footer = (i == n-1)
+			tampilkanDetailProyek(daftarProyek[i], header, footer)
+			header++
 			found = true
 		}
 	}
@@ -521,15 +522,20 @@ func proyekBerhasilPendanaan(daftarProyek DaftarProyek, n int) {
 	}
 }
 
-func tampilkanDetailProyek(p Proyek, iterasi int) {
+func tampilkanDetailProyek(p Proyek, header int, footer bool) {
 	var progress float64 = 0.0
 
-	if iterasi == 0 {
+	if header == 0 {
+		fmt.Println("\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗")
 		fmt.Println("║ Nama Proyek          ║ Kategori        ║ Target         ║ Dana Terkumpul ║ Jumlah Donatur ║ Progress ║")
 	}
 	if p.Target > 0 {
 		progress = (p.Dana / p.Target) * 100
 	}
 	fmt.Printf("║ %-20s ║ %-15s ║ Rp%-12.0f ║ Rp%-12.0f ║       %-8d ║   %-5.0f%% ║\n", p.Nama, p.Kategori, p.Target, p.Dana, p.Donatur, progress)
-	iterasi++
+	header++
+
+	if footer {
+		fmt.Println("╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝")
+	}
 }
